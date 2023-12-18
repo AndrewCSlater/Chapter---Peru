@@ -94,7 +94,11 @@ plot(prev$auc.pred.5pca, prev$auc.pred.deforest)
 
 ########################
 # Look for correlations between variables
+prev = read.csv("data/Peru_99_Species_Prev_AUC_VarInf_Trait.csv")
 names(prev)
+
+### AUC & Prevalence
+summary(lm(prev$auc.pred.5pca ~ prev$sitesSeenAt, na.action = na.exclude))
 
 plot(prev[,2:22])
 c = cor(prev[,c(2:22,26,27,35)], use = "complete.obs")

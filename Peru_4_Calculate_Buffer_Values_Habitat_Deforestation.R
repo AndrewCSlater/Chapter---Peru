@@ -5,7 +5,7 @@ library(sf)
 # library(terra)
 
 sat = raster::raster("Satellite_data/Hansen/Hansen_Yr_Forest_Loss.tif") 
-sat[sat>0]=1
+sat[sat>0]=1 # Value Zero 0 = No measured deforestation in since yr 2000 : Any value above Zero has been cut at some point & therefore is NOT Primary forest
 plot(sat)
 
 ####################################

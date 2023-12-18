@@ -98,7 +98,7 @@ env = select(env, site_station, habitat, forest)
 
 ####### PLOT - Points Colour Coded by Group
 g <- ggbiplot::ggbiplot(pca_ref,
-                        choices = c(1,2),
+                        choices = c(3,5),
                         obs.scale = 1,
                         var.scale = 1,
                         groups = env$landscape,
@@ -154,8 +154,16 @@ pca_ref$sdev
 
 cont = pca_ref$rotation^2 # Get influence of each band per the PCA component...square it to get rid of negative values
 cont = round(prop.table(cont, margin = 2), digits = 2)  ## Get Proportion of Each Band per PCA Component
+
 colSums(cont)
 max.bands = unique(rownames(cont)[apply(cont,2,which.max)])  ## Get Maximum Contributor per component
+
+
+pn = pca_ref$rotation  ## Turn proportional values pos or neg
+pn[pn<0] = -1
+pn[pn>0] = 1
+cont = cont*pn
+
 write.csv(cont, "data/Peru_6_PCA_Band_Contribution.csv", row.names = T)
 
 
